@@ -7,157 +7,73 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <style>
     :root {
-      --primary: #1a56db;
-      --primary-hover: #1e429f;
-      --bg: #f3f4f6;
-      --white: #ffffff;
-      --border: #d1d5db;
-      --text: #111827;
-      --text-muted: #6b7280;
-      --success: #059669;
-      --error: #dc2626;
-      --radius: 12px;
+      --primary: #1a56db; --primary-hover: #1e429f;
+      --bg: #f3f4f6; --white: #ffffff; --border: #d1d5db;
+      --text: #111827; --text-muted: #6b7280;
+      --success: #059669; --error: #dc2626; --radius: 12px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', '微软雅黑', sans-serif;
-      background: var(--bg);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      background: var(--bg); min-height: 100vh;
+      display: flex; align-items: center; justify-content: center; padding: 24px;
     }
     .card {
-      background: var(--white);
-      border-radius: var(--radius);
+      background: var(--white); border-radius: var(--radius);
       box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.06);
-      padding: 48px 44px 44px;
-      width: 100%;
-      max-width: 540px;
+      padding: 48px 44px 44px; width: 100%; max-width: 540px;
     }
-    .logo-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
+    .logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
     .logo-icon {
-      width: 42px;
-      height: 42px;
+      width: 42px; height: 42px; flex-shrink: 0; font-size: 20px;
       background: linear-gradient(135deg, #1a56db 0%, #7c3aed 100%);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
     }
-    .logo-text h1 { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.2; }
-    .logo-text p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .logo-text h1 { font-size: 18px; font-weight: 700; color: var(--text); }
+    .logo-text p  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .upload-zone {
-      border: 2px dashed var(--border);
-      border-radius: 10px;
-      padding: 40px 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      position: relative;
-      background: #fafafa;
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 40px 24px; text-align: center; cursor: pointer;
+      transition: border-color .2s, background .2s; position: relative; background: #fafafa;
     }
-    .upload-zone:hover, .upload-zone.drag-over {
-      border-color: var(--primary);
-      background: #eff6ff;
-    }
+    .upload-zone:hover, .upload-zone.drag-over { border-color: var(--primary); background: #eff6ff; }
     .upload-zone.has-file { border-color: var(--success); background: #f0fdf4; }
-    .upload-zone input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-    .upload-icon { font-size: 40px; margin-bottom: 12px; line-height: 1; }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon  { font-size: 40px; margin-bottom: 12px; line-height: 1; }
     .upload-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .upload-hint { font-size: 13px; color: var(--text-muted); }
-    .file-info {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      margin-top: 10px;
-      padding: 8px 12px;
-      background: #dcfce7;
-      border-radius: 6px;
-    }
+    .upload-hint  { font-size: 13px; color: var(--text-muted); }
+    .file-info { display: none; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 12px; background: #dcfce7; border-radius: 6px; }
     .file-info.show { display: flex; }
     .file-info span { font-size: 13px; color: #166534; font-weight: 500; }
     .btn-generate {
-      width: 100%;
-      margin-top: 20px;
-      padding: 13px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, opacity 0.2s;
-      letter-spacing: 0.3px;
+      width: 100%; margin-top: 20px; padding: 13px;
+      background: var(--primary); color: white; border: none; border-radius: 8px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: background .2s, opacity .2s; letter-spacing: .3px;
     }
     .btn-generate:hover:not(:disabled) { background: var(--primary-hover); }
-    .btn-generate:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-generate:disabled { opacity: .45; cursor: not-allowed; }
     .progress-wrap { display: none; margin-top: 24px; }
-    .progress-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 8px;
-    }
+    .progress-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
     .progress-label { font-size: 13px; font-weight: 500; color: var(--text); }
-    .progress-pct { font-size: 13px; font-weight: 700; color: var(--primary); }
+    .progress-pct   { font-size: 13px; font-weight: 700; color: var(--primary); }
     .progress-track { height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #1a56db, #7c3aed);
-      border-radius: 99px;
-      width: 0%;
-      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .progress-fill  { height: 100%; background: linear-gradient(90deg,#1a56db,#7c3aed); border-radius: 99px; width: 0%; transition: width .5s cubic-bezier(.4,0,.2,1); }
     .progress-steps { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
-    .step-item { font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 5px; }
+    .step-item      { font-size: 12px; color: #6b7280; }
     .step-item.done { color: var(--success); }
-    .step-item.active { color: var(--primary); font-weight: 500; }
     .btn-download {
-      display: none;
-      width: 100%;
-      margin-top: 20px;
-      padding: 13px;
-      background: var(--success);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      display: none; width: 100%; margin-top: 20px; padding: 13px;
+      background: var(--success); color: white; border: none; border-radius: 8px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: background .2s; align-items: center; justify-content: center; gap: 8px;
     }
     .btn-download.show { display: flex; }
     .btn-download:hover { background: #047857; }
     .error-box {
-      display: none;
-      margin-top: 16px;
-      padding: 12px 14px;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: 8px;
-      font-size: 13px;
-      color: var(--error);
-      line-height: 1.6;
+      display: none; margin-top: 16px; padding: 12px 14px;
+      background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;
+      font-size: 13px; color: var(--error); line-height: 1.6;
     }
     .error-box.show { display: block; }
     @media (max-width: 560px) { .card { padding: 32px 24px 28px; } }
@@ -178,15 +94,10 @@
     <div class="upload-icon" id="uploadIcon">📄</div>
     <div class="upload-title" id="uploadTitle">上传商业计划书 PDF</div>
     <div class="upload-hint">点击选择文件，或拖拽至此处</div>
-    <div class="file-info" id="fileInfo">
-      <span>✅</span>
-      <span id="fileName">未选择</span>
-    </div>
+    <div class="file-info" id="fileInfo"><span>✅</span><span id="fileName"></span></div>
   </div>
 
-  <button class="btn-generate" id="btnGenerate" onclick="startGeneration()" disabled>
-    开始生成简报
-  </button>
+  <button class="btn-generate" id="btnGenerate" onclick="startGeneration()" disabled>开始生成简报</button>
 
   <div class="error-box" id="errorBox"></div>
 
@@ -195,15 +106,11 @@
       <span class="progress-label" id="progressLabel">准备中...</span>
       <span class="progress-pct" id="progressPct">0%</span>
     </div>
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     <div class="progress-steps" id="progressSteps"></div>
   </div>
 
-  <button class="btn-download" id="btnDownload" onclick="downloadDoc()">
-    ⬇️ &nbsp;下载简报（Word 格式）
-  </button>
+  <button class="btn-download" id="btnDownload" onclick="downloadDoc()">⬇️ &nbsp;下载简报（Word 格式）</button>
 </div>
 
 <script>
@@ -214,7 +121,7 @@ let selectedFile = null;
 let generatedBlob = null;
 let generatedFileName = '项目简报';
 
-// ── File Upload ──
+// ── File Upload ──────────────────────────────────────────────
 function onFileSelect(input) {
   if (input.files && input.files[0]) setFile(input.files[0]);
 }
@@ -232,19 +139,17 @@ function setFile(file) {
   hideError();
   generatedFileName = file.name.replace(/\.pdf$/i, '');
 }
-
 const uploadZone = document.getElementById('uploadZone');
 uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
 uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
 uploadZone.addEventListener('drop', e => {
-  e.preventDefault();
-  uploadZone.classList.remove('drag-over');
+  e.preventDefault(); uploadZone.classList.remove('drag-over');
   const f = e.dataTransfer.files[0];
   if (f && f.type === 'application/pdf') setFile(f);
   else showError('请上传 PDF 格式的文件');
 });
 
-// ── Progress ──
+// ── Progress ─────────────────────────────────────────────────
 function setProgress(pct, label) {
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressPct').textContent = pct + '%';
@@ -258,12 +163,12 @@ function addStep(text) {
 }
 function showError(msg) {
   const el = document.getElementById('errorBox');
-  el.innerHTML = msg;
+  el.textContent = msg;
   el.classList.add('show');
 }
 function hideError() { document.getElementById('errorBox').classList.remove('show'); }
 
-// ── PDF Processing ──
+// ── PDF Processing ────────────────────────────────────────────
 async function extractText(pdf) {
   let out = '';
   for (let p = 1; p <= pdf.numPages; p++) {
@@ -273,28 +178,20 @@ async function extractText(pdf) {
   }
   return out;
 }
-
 async function renderPages(pdf) {
   const results = [];
-  const total = Math.min(pdf.numPages, 20);
-  for (let p = 1; p <= total; p++) {
+  for (let p = 1; p <= Math.min(pdf.numPages, 20); p++) {
     const page = await pdf.getPage(p);
     const vp = page.getViewport({ scale: 1.2 });
     const canvas = document.createElement('canvas');
-    canvas.width = vp.width;
-    canvas.height = vp.height;
+    canvas.width = vp.width; canvas.height = vp.height;
     await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
-    results.push({
-      base64: canvas.toDataURL('image/jpeg', 0.55).split(',')[1],
-      width: vp.width,
-      height: vp.height,
-      page: p
-    });
+    results.push({ base64: canvas.toDataURL('image/jpeg', 0.55).split(',')[1], width: vp.width, height: vp.height });
   }
   return results;
 }
 
-// ── Backend API Calls ──
+// ── Backend Calls ─────────────────────────────────────────────
 async function callBackend(body) {
   const res = await fetch('/api/generate', {
     method: 'POST',
@@ -307,280 +204,31 @@ async function callBackend(body) {
 }
 
 async function analyzeBusinessPlan(text, pages) {
-  return await callBackend({
-    action: 'analyze',
-    text,
-    images: pages.slice(0, 10).map(p => p.base64)
-  });
+  return callBackend({ action: 'analyze', text, images: pages.slice(0, 10).map(p => p.base64) });
 }
-
 async function getCompetitors(data) {
   try {
-    return await callBackend({
-      action: 'competitors',
-      companyName: data.companyName,
-      shortName: data.shortName,
-      industry: data.industry,
-      mainBiz: data.mainBiz
-    });
-  } catch(e) { return []; }
+    return await callBackend({ action: 'competitors', companyName: data.companyName, shortName: data.shortName, industry: data.industry, mainBiz: data.mainBiz });
+  } catch { return []; }
 }
+async function buildWord(data, competitors, pages) {
+  // Collect only the page images we need for the document
+  const neededIdxs = new Set();
+  for (const p of (data.products || [])) if (p.hasImg && p.imgPage >= 0) neededIdxs.add(p.imgPage);
+  for (const i of (data.imgPages || [])) if (i >= 0) neededIdxs.add(i);
+  const pageImages = [...neededIdxs]
+    .filter(i => i < pages.length)
+    .map(i => ({ idx: i, base64: pages[i].base64, width: pages[i].width, height: pages[i].height }));
 
-// ── Word Document Generation ──
-function b64ToU8(b64) {
-  const bin = atob(b64);
+  const result = await callBackend({ action: 'docx', briefData: data, competitors, pageImages });
+
+  const bin = atob(result.docx);
   const u8 = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
-  return u8;
+  return new Blob([u8], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
 }
 
-async function buildWord(data, competitors, pages) {
-  const {
-    Document, Packer, Paragraph, TextRun, ImageRun,
-    Table, TableRow, TableCell, AlignmentType,
-    BorderStyle, WidthType
-  } = await import('https://esm.sh/docx@8.5.0');
-
-  const NAVY = '1e3a5f', BLUE = '1a56db', GRAY_BG = 'f1f5f9';
-  const HEADER_BG = '1e3a5f', WHITE = 'FFFFFF';
-  const FONT = '微软雅黑', FONT_BODY = '仿宋';
-
-  function secHeading(num, title) {
-    return new Paragraph({
-      children: [new TextRun({ text: `${num}、${title}`, bold: true, size: 28, font: FONT, color: NAVY })],
-      spacing: { before: 360, after: 160 },
-      border: { bottom: { color: NAVY, style: BorderStyle.SINGLE, size: 8, space: 4 } }
-    });
-  }
-  function subTitle(text) {
-    return new Paragraph({
-      children: [new TextRun({ text, bold: true, size: 24, font: FONT, color: BLUE })],
-      spacing: { before: 200, after: 100 }
-    });
-  }
-  function bodyPara(text, indent = true) {
-    return new Paragraph({
-      children: [new TextRun({ text: text || '未披露', size: 22, font: FONT_BODY })],
-      spacing: { after: 100, line: 360, lineRule: 'auto' },
-      indent: indent ? { firstLine: 440 } : {}
-    });
-  }
-  function infoRow(label, value) {
-    return new TableRow({
-      children: [
-        new TableCell({
-          children: [new Paragraph({ children: [new TextRun({ text: label, bold: true, size: 20, font: FONT })], spacing: { after: 0 } })],
-          width: { size: 22, type: WidthType.PERCENTAGE },
-          shading: { fill: GRAY_BG },
-          margins: { top: 80, bottom: 80, left: 120, right: 120 }
-        }),
-        new TableCell({
-          children: [new Paragraph({ children: [new TextRun({ text: value || '未披露', size: 20, font: FONT_BODY })], spacing: { after: 0 } })],
-          width: { size: 78, type: WidthType.PERCENTAGE },
-          margins: { top: 80, bottom: 80, left: 120, right: 120 }
-        })
-      ]
-    });
-  }
-  function spacer(before = 100) {
-    return new Paragraph({ children: [new TextRun('')], spacing: { before, after: 0 } });
-  }
-  function tryImage(pageImg, maxW = 420) {
-    if (!pageImg) return null;
-    try {
-      const scale = Math.min(1, maxW / pageImg.width);
-      return new Paragraph({
-        children: [new ImageRun({
-          data: b64ToU8(pageImg.base64),
-          transformation: { width: Math.round(pageImg.width * scale), height: Math.round(pageImg.height * scale) }
-        })],
-        alignment: AlignmentType.CENTER,
-        spacing: { before: 120, after: 160 }
-      });
-    } catch(e) { return null; }
-  }
-
-  const children = [];
-
-  // Cover
-  children.push(spacer(800));
-  children.push(new Paragraph({
-    children: [new TextRun({ text: data.companyName || '项目', bold: true, size: 52, font: FONT, color: NAVY })],
-    alignment: AlignmentType.CENTER, spacing: { after: 200 }
-  }));
-  children.push(new Paragraph({
-    children: [new TextRun({ text: '初次考察报告', bold: true, size: 40, font: FONT, color: BLUE })],
-    alignment: AlignmentType.CENTER, spacing: { after: 600 }
-  }));
-  children.push(new Table({
-    width: { size: 68, type: WidthType.PERCENTAGE },
-    alignment: AlignmentType.CENTER,
-    rows: [
-      infoRow('考察人员', ''),
-      infoRow('考察对象', data.companyName || ''),
-      infoRow('考察地点', ''),
-      infoRow('考察时间', '')
-    ]
-  }));
-  children.push(spacer(600));
-  children.push(new Paragraph({ pageBreakBefore: true, children: [new TextRun('')] }));
-
-  // 一、项目概况
-  children.push(secHeading('一', '项目概况'));
-  children.push(new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      infoRow('企业名称', data.companyName),
-      infoRow('注册地址', data.address),
-      infoRow('成立时间', data.foundedDate),
-      infoRow('注册资本', data.regCapital),
-      infoRow('法定代表人', data.legalRep),
-      infoRow('官方网站', data.website),
-      infoRow('联系方式', data.contact)
-    ]
-  }));
-  children.push(spacer(160));
-  children.push(subTitle('项目简介'));
-  children.push(bodyPara(data.summary));
-
-  // 二、主营业务
-  children.push(secHeading('二', '主营业务'));
-  children.push(bodyPara(data.mainBiz));
-
-  if (data.products?.length) {
-    children.push(spacer(120));
-    children.push(subTitle('主要产品 / 服务'));
-    for (const prod of data.products) {
-      children.push(new Paragraph({
-        children: [new TextRun({ text: '▌ ' + prod.name, bold: true, size: 24, font: FONT, color: NAVY })],
-        spacing: { before: 200, after: 80 }
-      }));
-      children.push(bodyPara(prod.desc, false));
-      if (prod.hasImg && prod.imgPage >= 0 && prod.imgPage < pages.length) {
-        const img = tryImage(pages[prod.imgPage], 400);
-        if (img) children.push(img);
-      }
-    }
-  }
-
-  // Extra product pages
-  if (data.imgPages?.length) {
-    const used = new Set((data.products || []).map(p => p.imgPage));
-    const extra = data.imgPages.filter(i => !used.has(i) && i >= 0 && i < pages.length);
-    if (extra.length) {
-      children.push(spacer(120));
-      children.push(subTitle('产品 / 技术展示'));
-      for (const idx of extra.slice(0, 4)) {
-        const img = tryImage(pages[idx], 440);
-        if (img) children.push(img);
-      }
-    }
-  }
-
-  // 三、核心团队
-  children.push(secHeading('三', '核心团队'));
-  if (data.team?.length) {
-    for (const m of data.team) {
-      children.push(new Paragraph({
-        children: [
-          new TextRun({ text: m.name, bold: true, size: 24, font: FONT }),
-          new TextRun({ text: '　' + (m.title || ''), size: 22, font: FONT, color: BLUE })
-        ],
-        spacing: { before: 160, after: 60 }
-      }));
-      children.push(bodyPara(m.bg, false));
-    }
-  } else {
-    children.push(bodyPara('计划书中未披露详细团队信息。'));
-  }
-
-  // 四、财务情况
-  children.push(secHeading('四', '财务情况'));
-  children.push(bodyPara(data.finance || '计划书中未披露详细财务数据。'));
-
-  // 五、融资情况
-  children.push(secHeading('五', '融资情况'));
-  const finRows = [];
-  if (data.round && data.round !== '未披露') finRows.push(infoRow('融资阶段', data.round));
-  if (data.amount && data.amount !== '未披露') finRows.push(infoRow('融资金额', data.amount));
-  if (data.valuation && data.valuation !== '未披露') finRows.push(infoRow('投后估值', data.valuation));
-  if (data.useOfFunds && data.useOfFunds !== '未披露') finRows.push(infoRow('融资用途', data.useOfFunds));
-  if (data.prevRounds && data.prevRounds !== '未披露') finRows.push(infoRow('历史融资', data.prevRounds));
-  if (finRows.length) {
-    children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: finRows }));
-  } else {
-    children.push(bodyPara('计划书中未披露详细融资信息。'));
-  }
-
-  // 六、行业情况
-  children.push(secHeading('六', '行业情况'));
-  children.push(bodyPara(data.industryDesc));
-
-  if (competitors?.length) {
-    children.push(spacer(140));
-    children.push(subTitle('主要竞品分析'));
-    const hdr = new TableRow({
-      tableHeader: true,
-      children: ['竞品公司', '核心产品', '简介', '核心优势'].map((t, i) =>
-        new TableCell({
-          children: [new Paragraph({
-            children: [new TextRun({ text: t, bold: true, size: 20, font: FONT, color: WHITE })],
-            alignment: AlignmentType.CENTER, spacing: { after: 0 }
-          })],
-          shading: { fill: HEADER_BG },
-          width: { size: [20, 20, 35, 25][i], type: WidthType.PERCENTAGE },
-          margins: { top: 80, bottom: 80, left: 100, right: 100 }
-        })
-      )
-    });
-    const rows = competitors.map((c, ri) =>
-      new TableRow({
-        children: [c.company, c.product, c.desc, c.strength].map(val =>
-          new TableCell({
-            children: [new Paragraph({ children: [new TextRun({ text: val || '—', size: 19, font: FONT_BODY })], spacing: { after: 0 } })],
-            shading: ri % 2 === 0 ? {} : { fill: GRAY_BG },
-            margins: { top: 80, bottom: 80, left: 100, right: 100 }
-          })
-        )
-      })
-    );
-    children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [hdr, ...rows] }));
-    children.push(new Paragraph({
-      children: [new TextRun({ text: '注：以上竞品信息来源于 Claude AI 公开知识库，仅供参考，数据截至模型训练时间点。', size: 18, font: FONT_BODY, color: '9ca3af', italics: true })],
-      spacing: { before: 80 }
-    }));
-  }
-
-  // 七、风险点
-  children.push(secHeading('七', '风险点'));
-  if (data.risks?.length) {
-    data.risks.forEach(r => {
-      children.push(new Paragraph({
-        bullet: { level: 0 },
-        children: [new TextRun({ text: r, size: 22, font: FONT_BODY })],
-        spacing: { after: 80 }
-      }));
-    });
-  } else {
-    children.push(bodyPara('计划书中未披露相关信息。'));
-  }
-
-  // 八、综合评价
-  children.push(secHeading('八', '综合评价'));
-  children.push(bodyPara(data.evaluation));
-
-  const doc = new Document({
-    sections: [{
-      properties: {
-        page: { margin: { top: 1440, bottom: 1440, left: 1584, right: 1584 } }
-      },
-      children
-    }]
-  });
-  return await Packer.toBlob(doc);
-}
-
-// ── Main Flow ──
+// ── Main Flow ─────────────────────────────────────────────────
 async function startGeneration() {
   if (!selectedFile) { showError('请先上传商业计划书 PDF 文件'); return; }
   hideError();
@@ -592,8 +240,7 @@ async function startGeneration() {
 
   try {
     setProgress(5, '读取 PDF 文件...');
-    const buf = await selectedFile.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+    const pdf = await pdfjsLib.getDocument({ data: await selectedFile.arrayBuffer() }).promise;
     addStep(`PDF 加载完成，共 ${pdf.numPages} 页`);
 
     setProgress(15, '提取文字内容...');
@@ -609,11 +256,11 @@ async function startGeneration() {
     addStep(`内容分析完成：${data.companyName || '项目'}`);
     if (data.products?.length) addStep(`识别产品/服务 ${data.products.length} 项`);
 
-    setProgress(68, '正在获取竞品信息...');
+    setProgress(65, '正在获取竞品信息...');
     const competitors = await getCompetitors(data);
     addStep(`竞品分析完成（${competitors.length} 个竞品）`);
 
-    setProgress(82, '正在生成 Word 文档...');
+    setProgress(80, '正在生成 Word 文档...');
     generatedBlob = await buildWord(data, competitors, pages);
     addStep('Word 文档生成完成');
 
