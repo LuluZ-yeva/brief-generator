@@ -1,6 +1,6 @@
-import Anthropic from '@anthropic-ai/sdk';
-
-export const config = { maxDuration: 60 };
+// CommonJS — compatible with Vercel Node.js runtime
+const AnthropicModule = require('@anthropic-ai/sdk');
+const Anthropic = AnthropicModule.default || AnthropicModule;
 
 const ANALYSIS_PROMPT = `请严格按照以下 JSON 格式输出，所有信息必须来自计划书中真实存在的内容，无法找到的字段填"未披露"。只输出 JSON，不要有任何其他文字：
 
@@ -44,7 +44,7 @@ const ANALYSIS_PROMPT = `请严格按照以下 JSON 格式输出，所有信息�
 - products[].hasImg：该产品在计划书中是否有配图
 - imgPages：包含产品/技术展示图的页面索引（0-based），最多6个`;
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return res.status(500).json({
-      error: '未配置 API Key。请在 Vercel 项目设置 → Environment Variables 中添加 ANTHROPIC_API_KEY。'
+      error: '未配置 API Key。请在 Vercel 项目 Settings → Environment Variables 中添加 ANTHROPIC_API_KEY，然后点击 Redeploy。'
     });
   }
 
@@ -68,13 +68,16 @@ export default async function handler(req, res) {
       const content = [
         {
           type: 'text',
-          text: `你是专业的一级市场股权投资分析师，请仔细阅读以下商业计划书内容，提取关键信息。\n\n【计划书文字内容】\n${truncated}${(text || '').length > 80000 ? '\n（内容较长，已截取前80000字符）' : ''}\n\n${images?.length ? `【计划书各页截图（共${images.length}页），请仔细观察每页的产品图片】` : ''}`
+          text: `你是专业的一级市场股权投资分析师，请仔细阅读以下商业计划书内容，提取关键信息。\n\n【计划书文字内容】\n${truncated}${(text || '').length > 80000 ? '\n（内容较长，已截取前80000字符）' : ''}\n\n${images && images.length ? `【计划书各页截图（共${images.length}页），请仔细观察产品图片】` : ''}`
         }
       ];
 
-      if (images?.length) {
-        for (const img of images.slice(0, 12)) {
-          content.push({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: img } });
+      if (images && images.length > 0) {
+        for (const img of images.slice(0, 10)) {
+          content.push({
+            type: 'image',
+            source: { type: 'base64', media_type: 'image/jpeg', data: img }
+          });
         }
       }
 
@@ -85,6 +88,7 @@ export default async function handler(req, res) {
         max_tokens: 8000,
         messages: [{ role: 'user', content }]
       });
+
       return res.json({ result: msg.content[0].text });
     }
 
@@ -95,16 +99,17 @@ export default async function handler(req, res) {
         max_tokens: 2500,
         messages: [{
           role: 'user',
-          content: `你是专业的投资分析师。请根据公开信息为以下项目提供竞品分析。\n\n公司：${companyName}（${shortName}）\n行业：${industry}\n主营业务：${(mainBiz || '').substring(0, 400)}\n\n请列出3-5个该领域的主要竞争对手（国内外均可，包括直接和间接竞争者）。只输出 JSON 数组：\n[\n  {\n    "company": "竞品公司名称",\n    "product": "核心产品/服务",\n    "desc": "竞品简介（50-80字）",\n    "strength": "核心优势",\n    "diff": "与${name}的主要差异"\n  }\n]`
+          content: `你是专业的投资分析师。请根据公开信息为以下项目提供竞品分析。\n\n公司：${companyName || ''}（${shortName || ''}）\n行业：${industry || ''}\n主营业务：${(mainBiz || '').substring(0, 400)}\n\n请列出3-5个该领域的主要竞争对手（国内外均可）。只输出 JSON 数组：\n[\n  {\n    "company": "竞品公司名称",\n    "product": "核心产品/服务",\n    "desc": "竞品简介（50-80字）",\n    "strength": "核心优势",\n    "diff": "与${name}的主要差异"\n  }\n]`
         }]
       });
+
       return res.json({ result: msg.content[0].text });
     }
 
     return res.status(400).json({ error: '无效的 action 参数' });
 
   } catch (err) {
-    console.error('API error:', err);
+    console.error('[generate] error:', err);
     return res.status(500).json({ error: err.message || '服务器内部错误' });
   }
-}
+};
