@@ -2,7 +2,53 @@ import Anthropic from '@anthropic-ai/sdk';
 
 export const config = { maxDuration: 60 };
 
-const ANALYSIS_PROMPT = `请严格按照以下 JSON 格式输出，所有信息必须来自计划书中真实存在的内容，无法找到的字段填"未披露"。只输出 JSON，不要有任何其他文字：
+// Robust JSON parser: fixes unescaped newlines/tabs inside string values
+function safeParseJSON(text) {
+  // Strip markdown code fences
+  text = text.replace(/^```(?:json)?\s*/im, '').replace(/\s*```\s*$/im, '').trim();
+
+  // Try direct parse first
+  try { return JSON.parse(text); } catch (_) {}
+
+  // Extract the outermost { } or [ ]
+  const firstBrace = text.indexOf('{');
+  const firstBracket = text.indexOf('[');
+  let start = -1;
+  if (firstBrace !== -1 && (firstBracket === -1 || firstBrace < firstBracket)) start = firstBrace;
+  else if (firstBracket !== -1) start = firstBracket;
+  if (start === -1) throw new Error('响应中未找到 JSON');
+
+  const isObj = text[start] === '{';
+  const end = isObj ? text.lastIndexOf('}') : text.lastIndexOf(']');
+  const raw = text.substring(start, end + 1);
+
+  try { return JSON.parse(raw); } catch (_) {}
+
+  // Fix unescaped control characters inside JSON strings
+  let fixed = '';
+  let inString = false;
+  let escaped = false;
+  for (let i = 0; i < raw.length; i++) {
+    const ch = raw[i];
+    if (escaped) { fixed += ch; escaped = false; continue; }
+    if (ch === '\\') { fixed += ch; escaped = true; continue; }
+    if (ch === '"') { inString = !inString; fixed += ch; continue; }
+    if (inString) {
+      if (ch === '\n')      { fixed += '\\n'; continue; }
+      if (ch === '\r')      { fixed += '\\r'; continue; }
+      if (ch === '\t')      { fixed += '\\t'; continue; }
+    }
+    fixed += ch;
+  }
+
+  return JSON.parse(fixed);
+}
+
+const ANALYSIS_PROMPT = `请严格按照以下 JSON 格式输出。重要格式要求：
+1. 所有字符串值必须在同一行内，不得包含换行符（换行用 \\n 替代）
+2. 字符串中的引号用 \\" 转义
+3. 只输出 JSON，不要有任何其他文字或代码块标记
+4. 无法在计划书中找到的字段填"未披露"
 
 {
   "companyName": "公司全称",
@@ -13,36 +59,29 @@ const ANALYSIS_PROMPT = `请严格按照以下 JSON 格式输出，所有信息�
   "legalRep": "法定代表人 / CEO 姓名",
   "website": "官方网站",
   "contact": "联系方式",
-  "summary": "项目简介（2-3句话，说明核心业务和价值主张）",
-  "mainBiz": "主营业务详述（不少于200字，涵盖业务模式、服务对象、核心价值）",
+  "summary": "项目简介（2-3句话，说明核心业务和价值主张，全部在一行内）",
+  "mainBiz": "主营业务详述（不少于200字，全部在一行内）",
   "products": [
-    {
-      "name": "产品或服务名称",
-      "desc": "产品描述（100-150字）",
-      "imgPage": -1,
-      "hasImg": false
-    }
+    { "name": "产品名称", "desc": "产品描述（100-150字，全部在一行内）", "imgPage": -1, "hasImg": false }
   ],
   "team": [
-    { "name": "姓名", "title": "职位", "bg": "教育与工作背景（1-2句）" }
+    { "name": "姓名", "title": "职位", "bg": "背景介绍（一行内）" }
   ],
-  "finance": "财务情况（历史营收、盈亏，未披露则说明）",
-  "round": "本轮融资阶段",
-  "amount": "本轮融资金额",
+  "finance": "财务情况（一行内）",
+  "round": "融资阶段",
+  "amount": "融资金额",
   "valuation": "投后估值",
-  "useOfFunds": "融资用途",
+  "useOfFunds": "融资用途（一行内）",
   "prevRounds": "历史融资记录",
-  "industry": "所属细分行业（精确描述）",
-  "industryDesc": "行业概况（不少于200字，含行业规模、增速、政策背景、发展趋势）",
+  "industry": "所属细分行业",
+  "industryDesc": "行业概况（不少于200字，全部在一行内）",
   "imgPages": [],
   "risks": ["风险点1", "风险点2", "风险点3"],
-  "evaluation": "综合评价（不少于150字，含亮点和关注点）"
+  "evaluation": "综合评价（不少于150字，全部在一行内）"
 }
 
-字段说明：
-- products[].imgPage：0-based 页面索引，该产品对应图片最可能所在页；无则填 -1
-- products[].hasImg：该产品在计划书中是否有配图
-- imgPages：包含产品/技术展示图的页面索引（0-based），最多6个`;
+imgPages 说明：填入包含产品/技术展示图片的页面索引（0-based），最多6个。
+products[].imgPage：该产品配图最可能所在页的索引（0-based），无则填 -1。`;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -55,7 +94,7 @@ export default async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return res.status(500).json({
-      error: '未配置 API Key。请在 Vercel 项目 Settings → Environment Variables 中添加 ANTHROPIC_API_KEY，然后点击 Redeploy。'
+      error: '未配置 API Key。请在 Vercel Settings → Environment Variables 中添加 ANTHROPIC_API_KEY 并重新部署。'
     });
   }
 
@@ -86,7 +125,8 @@ export default async function handler(req, res) {
         messages: [{ role: 'user', content }]
       });
 
-      return res.json({ result: msg.content[0].text });
+      const data = safeParseJSON(msg.content[0].text);
+      return res.json({ data });
     }
 
     if (action === 'competitors') {
@@ -96,11 +136,16 @@ export default async function handler(req, res) {
         max_tokens: 2500,
         messages: [{
           role: 'user',
-          content: `你是专业的投资分析师。请根据公开信息为以下项目提供竞品分析。\n\n公司：${companyName || ''}（${shortName || ''}）\n行业：${industry || ''}\n主营业务：${(mainBiz || '').substring(0, 400)}\n\n请列出3-5个该领域的主要竞争对手（国内外均可）。只输出 JSON 数组：\n[\n  {\n    "company": "竞品公司名称",\n    "product": "核心产品/服务",\n    "desc": "竞品简介（50-80字）",\n    "strength": "核心优势",\n    "diff": "与${name}的主要差异"\n  }\n]`
+          content: `你是专业的投资分析师。请根据公开信息为以下项目提供竞品分析。\n\n公司：${companyName || ''}（${shortName || ''}）\n行业：${industry || ''}\n主营业务：${(mainBiz || '').substring(0, 400)}\n\n请列出3-5个该领域的主要竞争对手（国内外均可）。只输出 JSON 数组，不要有其他文字：\n[\n  {\n    "company": "竞品公司名称",\n    "product": "核心产品/服务",\n    "desc": "竞品简介（50-80字，一行内）",\n    "strength": "核心优势（一行内）",\n    "diff": "与${name}的主要差异（一行内）"\n  }\n]`
         }]
       });
 
-      return res.json({ result: msg.content[0].text });
+      try {
+        const data = safeParseJSON(msg.content[0].text);
+        return res.json({ data });
+      } catch (_) {
+        return res.json({ data: [] });
+      }
     }
 
     return res.status(400).json({ error: '无效的 action 参数' });

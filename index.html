@@ -302,34 +302,29 @@ async function callBackend(body) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || `请求失败 (${res.status})`);
-  return data.result;
-}
-
-function parseJSON(raw) {
-  const m = raw.match(/[\[{][\s\S]*[\]}]/);
-  return JSON.parse(m ? m[0] : raw);
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error || `请求失败 (${res.status})`);
+  return json.data;
 }
 
 async function analyzeBusinessPlan(text, pages) {
-  const raw = await callBackend({
+  return await callBackend({
     action: 'analyze',
     text,
-    images: pages.slice(0, 12).map(p => p.base64)
+    images: pages.slice(0, 10).map(p => p.base64)
   });
-  return parseJSON(raw);
 }
 
 async function getCompetitors(data) {
-  const raw = await callBackend({
-    action: 'competitors',
-    companyName: data.companyName,
-    shortName: data.shortName,
-    industry: data.industry,
-    mainBiz: data.mainBiz
-  });
-  try { return parseJSON(raw); } catch(e) { return []; }
+  try {
+    return await callBackend({
+      action: 'competitors',
+      companyName: data.companyName,
+      shortName: data.shortName,
+      industry: data.industry,
+      mainBiz: data.mainBiz
+    });
+  } catch(e) { return []; }
 }
 
 // ── Word Document Generation ──
