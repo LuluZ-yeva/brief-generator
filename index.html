@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>项目简报生成工具</title>
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.js"></script>
   <style>
     :root {
       --primary: #1a56db;
@@ -340,7 +339,7 @@ async function buildWord(data, competitors, pages) {
     Document, Packer, Paragraph, TextRun, ImageRun,
     Table, TableRow, TableCell, AlignmentType,
     BorderStyle, WidthType
-  } = window.docx;
+  } = await import('https://esm.sh/docx@8.5.0');
 
   const NAVY = '1e3a5f', BLUE = '1a56db', GRAY_BG = 'f1f5f9';
   const HEADER_BG = '1e3a5f', WHITE = 'FFFFFF';
