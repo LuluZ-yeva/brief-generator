@@ -54,17 +54,8 @@
       font-size: 20px;
       flex-shrink: 0;
     }
-    .logo-text h1 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.2;
-    }
-    .logo-text p {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
+    .logo-text h1 { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .logo-text p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .upload-zone {
       border: 2px dashed var(--border);
       border-radius: 10px;
@@ -79,10 +70,7 @@
       border-color: var(--primary);
       background: #eff6ff;
     }
-    .upload-zone.has-file {
-      border-color: var(--success);
-      background: #f0fdf4;
-    }
+    .upload-zone.has-file { border-color: var(--success); background: #f0fdf4; }
     .upload-zone input[type="file"] {
       position: absolute;
       inset: 0;
@@ -92,12 +80,7 @@
       height: 100%;
     }
     .upload-icon { font-size: 40px; margin-bottom: 12px; line-height: 1; }
-    .upload-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
+    .upload-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
     .upload-hint { font-size: 13px; color: var(--text-muted); }
     .file-info {
       display: none;
@@ -126,32 +109,16 @@
     }
     .btn-generate:hover:not(:disabled) { background: var(--primary-hover); }
     .btn-generate:disabled { opacity: 0.45; cursor: not-allowed; }
-    .progress-wrap {
-      display: none;
-      margin-top: 24px;
-    }
+    .progress-wrap { display: none; margin-top: 24px; }
     .progress-head {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       margin-bottom: 8px;
     }
-    .progress-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-    }
-    .progress-pct {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-    .progress-track {
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 99px;
-      overflow: hidden;
-    }
+    .progress-label { font-size: 13px; font-weight: 500; color: var(--text); }
+    .progress-pct { font-size: 13px; font-weight: 700; color: var(--primary); }
+    .progress-track { height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, #1a56db, #7c3aed);
@@ -159,19 +126,8 @@
       width: 0%;
       transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .progress-steps {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .step-item {
-      font-size: 12px;
-      color: #6b7280;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+    .progress-steps { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+    .step-item { font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 5px; }
     .step-item.done { color: var(--success); }
     .step-item.active { color: var(--primary); font-weight: 500; }
     .btn-download {
@@ -202,120 +158,13 @@
       border-radius: 8px;
       font-size: 13px;
       color: var(--error);
-      line-height: 1.5;
+      line-height: 1.6;
     }
     .error-box.show { display: block; }
-    .settings-btn {
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--white);
-      cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      transition: box-shadow 0.2s;
-    }
-    .settings-btn:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.14); }
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.35);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .overlay.show { display: flex; }
-    .modal {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 32px;
-      width: 100%;
-      max-width: 460px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    }
-    .modal h2 {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .modal .subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-    .modal .subtitle a { color: var(--primary); text-decoration: none; }
-    .field { margin-bottom: 16px; }
-    .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .field input, .field select {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      font-size: 14px;
-      outline: none;
-      color: var(--text);
-      transition: border-color 0.2s;
-      font-family: inherit;
-    }
-    .field input:focus, .field select:focus { border-color: var(--primary); }
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      margin-top: 20px;
-    }
-    .btn-cancel {
-      padding: 8px 18px;
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 14px;
-      color: var(--text);
-      font-family: inherit;
-    }
-    .btn-save {
-      padding: 8px 18px;
-      background: var(--primary);
-      border: none;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 14px;
-      color: white;
-      font-weight: 600;
-      font-family: inherit;
-    }
-    .key-hint {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 5px;
-    }
-    @media (max-width: 560px) {
-      .card { padding: 32px 24px 28px; }
-    }
+    @media (max-width: 560px) { .card { padding: 32px 24px 28px; } }
   </style>
 </head>
 <body>
-
-<button class="settings-btn" onclick="openSettings()" title="API 设置">⚙️</button>
-
 <div class="card">
   <div class="logo-row">
     <div class="logo-icon">📋</div>
@@ -358,38 +207,7 @@
   </button>
 </div>
 
-<!-- Settings Modal -->
-<div class="overlay" id="settingsOverlay">
-  <div class="modal">
-    <h2>⚙️ API 设置</h2>
-    <div class="subtitle">
-      API Key 仅保存在您的浏览器本地，不会上传至任何服务器。<br>
-      前往 <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> 获取您的 API Key。
-    </div>
-    <div class="field">
-      <label>Claude API Key</label>
-      <input type="password" id="inputApiKey" placeholder="sk-ant-api03-...">
-      <div class="key-hint">以 sk-ant- 开头的密钥串</div>
-    </div>
-    <div class="field">
-      <label>使用模型</label>
-      <select id="selectModel">
-        <option value="claude-sonnet-4-6">Claude Sonnet 4.6（推荐，速度与质量均衡）</option>
-        <option value="claude-opus-4-7">Claude Opus 4.7（最高质量，较慢）</option>
-        <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5（最快，成本最低）</option>
-      </select>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeSettings()">取消</button>
-      <button class="btn-save" onclick="saveSettings()">保存</button>
-    </div>
-  </div>
-</div>
-
 <script>
-// ─────────────────────────────────────────────
-// Bootstrap
-// ─────────────────────────────────────────────
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
 
@@ -397,38 +215,14 @@ let selectedFile = null;
 let generatedBlob = null;
 let generatedFileName = '项目简报';
 
-// ─────────────────────────────────────────────
-// Settings
-// ─────────────────────────────────────────────
-function openSettings() {
-  document.getElementById('inputApiKey').value = localStorage.getItem('cc_apikey') || '';
-  document.getElementById('selectModel').value = localStorage.getItem('cc_model') || 'claude-sonnet-4-5-20251022';
-  document.getElementById('settingsOverlay').classList.add('show');
-}
-function closeSettings() {
-  document.getElementById('settingsOverlay').classList.remove('show');
-}
-function saveSettings() {
-  const k = document.getElementById('inputApiKey').value.trim();
-  if (k) localStorage.setItem('cc_apikey', k);
-  localStorage.setItem('cc_model', document.getElementById('selectModel').value);
-  closeSettings();
-}
-document.getElementById('settingsOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeSettings();
-});
-
-// ─────────────────────────────────────────────
-// File Upload
-// ─────────────────────────────────────────────
+// ── File Upload ──
 function onFileSelect(input) {
   if (input.files && input.files[0]) setFile(input.files[0]);
 }
 function setFile(file) {
   selectedFile = file;
   generatedBlob = null;
-  const zone = document.getElementById('uploadZone');
-  zone.classList.add('has-file');
+  document.getElementById('uploadZone').classList.add('has-file');
   document.getElementById('uploadIcon').textContent = '✅';
   document.getElementById('uploadTitle').textContent = '已选择文件';
   document.getElementById('fileName').textContent = file.name;
@@ -451,32 +245,26 @@ uploadZone.addEventListener('drop', e => {
   else showError('请上传 PDF 格式的文件');
 });
 
-// ─────────────────────────────────────────────
-// Progress
-// ─────────────────────────────────────────────
+// ── Progress ──
 function setProgress(pct, label) {
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressPct').textContent = pct + '%';
   document.getElementById('progressLabel').textContent = label;
 }
-function addStep(text, state = 'done') {
+function addStep(text) {
   const el = document.createElement('div');
-  el.className = `step-item ${state}`;
-  el.textContent = (state === 'done' ? '✓ ' : state === 'active' ? '⟳ ' : '· ') + text;
+  el.className = 'step-item done';
+  el.textContent = '✓ ' + text;
   document.getElementById('progressSteps').appendChild(el);
 }
 function showError(msg) {
   const el = document.getElementById('errorBox');
-  el.textContent = msg;
+  el.innerHTML = msg;
   el.classList.add('show');
 }
-function hideError() {
-  document.getElementById('errorBox').classList.remove('show');
-}
+function hideError() { document.getElementById('errorBox').classList.remove('show'); }
 
-// ─────────────────────────────────────────────
-// PDF Processing
-// ─────────────────────────────────────────────
+// ── PDF Processing ──
 async function extractText(pdf) {
   let out = '';
   for (let p = 1; p <= pdf.numPages; p++) {
@@ -489,16 +277,16 @@ async function extractText(pdf) {
 
 async function renderPages(pdf) {
   const results = [];
-  const total = Math.min(pdf.numPages, 25);
+  const total = Math.min(pdf.numPages, 20);
   for (let p = 1; p <= total; p++) {
     const page = await pdf.getPage(p);
-    const vp = page.getViewport({ scale: 1.5 });
+    const vp = page.getViewport({ scale: 1.2 });
     const canvas = document.createElement('canvas');
     canvas.width = vp.width;
     canvas.height = vp.height;
     await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
     results.push({
-      base64: canvas.toDataURL('image/jpeg', 0.72).split(',')[1],
+      base64: canvas.toDataURL('image/jpeg', 0.55).split(',')[1],
       width: vp.width,
       height: vp.height,
       page: p
@@ -507,128 +295,44 @@ async function renderPages(pdf) {
   return results;
 }
 
-// ─────────────────────────────────────────────
-// Claude API
-// ─────────────────────────────────────────────
-async function callClaude(apiKey, model, messages, maxTokens = 6000) {
-  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+// ── Backend API Calls ──
+async function callBackend(body) {
+  const res = await fetch('/api/generate', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
-    body: JSON.stringify({ model, max_tokens: maxTokens, messages })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
   });
-  if (!resp.ok) {
-    const e = await resp.json().catch(() => ({}));
-    throw new Error(e.error?.message || `API 请求失败 (${resp.status})`);
-  }
-  return (await resp.json()).content[0].text;
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || `请求失败 (${res.status})`);
+  return data.result;
 }
 
-async function analyzeBusinessPlan(text, pages, apiKey, model) {
-  const content = [];
-  content.push({
-    type: 'text',
-    text: `你是专业的一级市场股权投资分析师，请仔细阅读以下商业计划书，提取关键信息。\n\n【计划书文字内容】\n${text.substring(0, 90000)}${text.length > 90000 ? '\n（内容过长，已截取前90000字符）' : ''}\n\n【计划书各页截图（共${pages.length}页，请仔细观察每页的产品图片和内容）】`
+function parseJSON(raw) {
+  const m = raw.match(/[\[{][\s\S]*[\]}]/);
+  return JSON.parse(m ? m[0] : raw);
+}
+
+async function analyzeBusinessPlan(text, pages) {
+  const raw = await callBackend({
+    action: 'analyze',
+    text,
+    images: pages.slice(0, 12).map(p => p.base64)
   });
-
-  // Include up to 18 page images
-  for (const pg of pages.slice(0, 18)) {
-    content.push({
-      type: 'image',
-      source: { type: 'base64', media_type: 'image/jpeg', data: pg.base64 }
-    });
-  }
-
-  content.push({
-    type: 'text',
-    text: `请严格按照以下 JSON 格式输出，所有信息必须来自计划书中真实存在的内容，无法找到的字段填写"未披露"。只输出 JSON，不要有任何其他文字：
-
-{
-  "companyName": "公司全称",
-  "shortName": "公司简称或品牌名",
-  "address": "注册地址或运营地址",
-  "foundedDate": "成立时间",
-  "regCapital": "注册资本",
-  "legalRep": "法定代表人 / CEO 姓名",
-  "website": "官方网站",
-  "contact": "联系方式",
-  "summary": "项目简介（2-3句话，说明核心业务和价值主张）",
-  "mainBiz": "主营业务详述（不少于200字，涵盖业务模式、服务对象、核心价值）",
-  "products": [
-    {
-      "name": "产品或服务名称",
-      "desc": "产品描述（100-150字）",
-      "imgPage": -1,
-      "hasImg": false
-    }
-  ],
-  "team": [
-    { "name": "姓名", "title": "职位", "bg": "教育与工作背景（1-2句）" }
-  ],
-  "finance": "财务情况（历史营收、盈亏状况，未披露则说明）",
-  "round": "本轮融资阶段",
-  "amount": "本轮融资金额",
-  "valuation": "投后估值",
-  "useOfFunds": "融资用途",
-  "prevRounds": "历史融资记录",
-  "industry": "所属细分行业（精确描述）",
-  "industryDesc": "行业概况（不少于200字，含行业规模、增速、政策背景、发展趋势）",
-  "imgPages": [],
-  "risks": ["风险点1", "风险点2", "风险点3"],
-  "evaluation": "综合评价（不少于150字，含亮点和关注点）"
+  return parseJSON(raw);
 }
 
-字段说明：
-- products[].imgPage：0-based 页面索引，填该产品对应图片最可能所在的页面；若无则填 -1
-- products[].hasImg：该产品在计划书中是否有图片
-- imgPages：包含产品/技术展示图片的页面索引数组（0-based），最多填6个`
+async function getCompetitors(data) {
+  const raw = await callBackend({
+    action: 'competitors',
+    companyName: data.companyName,
+    shortName: data.shortName,
+    industry: data.industry,
+    mainBiz: data.mainBiz
   });
-
-  const raw = await callClaude(apiKey, model, [{ role: 'user', content }], 8000);
-  try {
-    const m = raw.match(/\{[\s\S]*\}/);
-    return JSON.parse(m ? m[0] : raw);
-  } catch(e) {
-    console.error('Parse error:', raw);
-    throw new Error('AI 返回格式异常，请重试');
-  }
+  try { return parseJSON(raw); } catch(e) { return []; }
 }
 
-async function getCompetitors(data, apiKey, model) {
-  const prompt = `你是专业的投资分析师。请根据公开信息为以下项目提供竞品分析。
-
-公司：${data.companyName}（${data.shortName}）
-行业：${data.industry}
-主营业务：${(data.mainBiz || '').substring(0, 300)}
-
-请列出3-5个该领域的主要竞争对手（国内外均可，包括直接和间接竞争者）。只输出 JSON 数组，格式如下：
-[
-  {
-    "company": "竞品公司名称",
-    "product": "核心产品/服务",
-    "desc": "竞品简介（50-80字）",
-    "strength": "核心优势",
-    "diff": "与${data.shortName || data.companyName}的主要差异"
-  }
-]`;
-
-  const raw = await callClaude(apiKey, model, [{ role: 'user', content: prompt }], 2500);
-  try {
-    const m = raw.match(/\[[\s\S]*\]/);
-    return JSON.parse(m ? m[0] : raw);
-  } catch(e) {
-    console.warn('Competitor parse error', e);
-    return [];
-  }
-}
-
-// ─────────────────────────────────────────────
-// Word Document Generation
-// ─────────────────────────────────────────────
+// ── Word Document Generation ──
 function b64ToU8(b64) {
   const bin = atob(b64);
   const u8 = new Uint8Array(bin.length);
@@ -640,21 +344,12 @@ async function buildWord(data, competitors, pages) {
   const {
     Document, Packer, Paragraph, TextRun, ImageRun,
     Table, TableRow, TableCell, AlignmentType,
-    BorderStyle, WidthType, HeadingLevel,
-    convertInchesToTwip
+    BorderStyle, WidthType
   } = window.docx;
 
-  const NAVY = '1e3a5f';
-  const BLUE = '1a56db';
-  const GRAY_BG = 'f1f5f9';
-  const HEADER_BG = '1e3a5f';
-  const WHITE = 'FFFFFF';
-  const FONT = '微软雅黑';
-  const FONT_BODY = '仿宋';
-
-  // ── helpers ──
-  const noBorder = { style: BorderStyle.NONE, size: 0, color: 'auto' };
-  const allNoBorder = { top: noBorder, bottom: noBorder, left: noBorder, right: noBorder, insideH: noBorder, insideV: noBorder };
+  const NAVY = '1e3a5f', BLUE = '1a56db', GRAY_BG = 'f1f5f9';
+  const HEADER_BG = '1e3a5f', WHITE = 'FFFFFF';
+  const FONT = '微软雅黑', FONT_BODY = '仿宋';
 
   function secHeading(num, title) {
     return new Paragraph({
@@ -663,14 +358,12 @@ async function buildWord(data, competitors, pages) {
       border: { bottom: { color: NAVY, style: BorderStyle.SINGLE, size: 8, space: 4 } }
     });
   }
-
   function subTitle(text) {
     return new Paragraph({
       children: [new TextRun({ text, bold: true, size: 24, font: FONT, color: BLUE })],
       spacing: { before: 200, after: 100 }
     });
   }
-
   function bodyPara(text, indent = true) {
     return new Paragraph({
       children: [new TextRun({ text: text || '未披露', size: 22, font: FONT_BODY })],
@@ -678,81 +371,52 @@ async function buildWord(data, competitors, pages) {
       indent: indent ? { firstLine: 440 } : {}
     });
   }
-
-  function infoCell(text, isBold = false, bg = null) {
-    const cell = new TableCell({
-      children: [new Paragraph({
-        children: [new TextRun({ text: text || '—', bold: isBold, size: 20, font: FONT })],
-        spacing: { after: 0 }
-      })],
-      margins: { top: 80, bottom: 80, left: 120, right: 120 }
-    });
-    if (bg) cell.properties = cell.properties || {};
-    return cell;
-  }
-
   function infoRow(label, value) {
     return new TableRow({
       children: [
         new TableCell({
-          children: [new Paragraph({
-            children: [new TextRun({ text: label, bold: true, size: 20, font: FONT })],
-            spacing: { after: 0 }
-          })],
+          children: [new Paragraph({ children: [new TextRun({ text: label, bold: true, size: 20, font: FONT })], spacing: { after: 0 } })],
           width: { size: 22, type: WidthType.PERCENTAGE },
           shading: { fill: GRAY_BG },
           margins: { top: 80, bottom: 80, left: 120, right: 120 }
         }),
         new TableCell({
-          children: [new Paragraph({
-            children: [new TextRun({ text: value || '未披露', size: 20, font: FONT_BODY })],
-            spacing: { after: 0 }
-          })],
+          children: [new Paragraph({ children: [new TextRun({ text: value || '未披露', size: 20, font: FONT_BODY })], spacing: { after: 0 } })],
           width: { size: 78, type: WidthType.PERCENTAGE },
           margins: { top: 80, bottom: 80, left: 120, right: 120 }
         })
       ]
     });
   }
-
   function spacer(before = 100) {
     return new Paragraph({ children: [new TextRun('')], spacing: { before, after: 0 } });
   }
-
-  function insertImage(pageImg, maxWidthPx = 420) {
+  function tryImage(pageImg, maxW = 420) {
     if (!pageImg) return null;
     try {
-      const scale = Math.min(1, maxWidthPx / pageImg.width);
-      const w = Math.round(pageImg.width * scale);
-      const h = Math.round(pageImg.height * scale);
+      const scale = Math.min(1, maxW / pageImg.width);
       return new Paragraph({
         children: [new ImageRun({
           data: b64ToU8(pageImg.base64),
-          transformation: { width: w, height: h }
+          transformation: { width: Math.round(pageImg.width * scale), height: Math.round(pageImg.height * scale) }
         })],
         alignment: AlignmentType.CENTER,
         spacing: { before: 120, after: 160 }
       });
-    } catch(e) {
-      console.warn('Image insert failed', e);
-      return null;
-    }
+    } catch(e) { return null; }
   }
 
-  // ── build sections ──
   const children = [];
 
-  // ── Cover ──
+  // Cover
   children.push(spacer(800));
   children.push(new Paragraph({
     children: [new TextRun({ text: data.companyName || '项目', bold: true, size: 52, font: FONT, color: NAVY })],
-    alignment: AlignmentType.CENTER,
-    spacing: { after: 200 }
+    alignment: AlignmentType.CENTER, spacing: { after: 200 }
   }));
   children.push(new Paragraph({
     children: [new TextRun({ text: '初次考察报告', bold: true, size: 40, font: FONT, color: BLUE })],
-    alignment: AlignmentType.CENTER,
-    spacing: { after: 600 }
+    alignment: AlignmentType.CENTER, spacing: { after: 600 }
   }));
   children.push(new Table({
     width: { size: 68, type: WidthType.PERCENTAGE },
@@ -765,12 +429,9 @@ async function buildWord(data, competitors, pages) {
     ]
   }));
   children.push(spacer(600));
-  children.push(new Paragraph({
-    pageBreakBefore: true,
-    children: [new TextRun('')]
-  }));
+  children.push(new Paragraph({ pageBreakBefore: true, children: [new TextRun('')] }));
 
-  // ── 一、项目概况 ──
+  // 一、项目概况
   children.push(secHeading('一', '项目概况'));
   children.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
@@ -788,11 +449,11 @@ async function buildWord(data, competitors, pages) {
   children.push(subTitle('项目简介'));
   children.push(bodyPara(data.summary));
 
-  // ── 二、主营业务 ──
+  // 二、主营业务
   children.push(secHeading('二', '主营业务'));
   children.push(bodyPara(data.mainBiz));
 
-  if (data.products && data.products.length > 0) {
+  if (data.products?.length) {
     children.push(spacer(120));
     children.push(subTitle('主要产品 / 服务'));
     for (const prod of data.products) {
@@ -801,34 +462,30 @@ async function buildWord(data, competitors, pages) {
         spacing: { before: 200, after: 80 }
       }));
       children.push(bodyPara(prod.desc, false));
-
-      if (prod.hasImg && prod.imgPage >= 0) {
-        const pg = pages[prod.imgPage] || null;
-        if (pg) {
-          const imgPara = insertImage(pg, 400);
-          if (imgPara) children.push(imgPara);
-        }
+      if (prod.hasImg && prod.imgPage >= 0 && prod.imgPage < pages.length) {
+        const img = tryImage(pages[prod.imgPage], 400);
+        if (img) children.push(img);
       }
     }
   }
 
-  // Extra product images identified by AI
-  if (data.imgPages && data.imgPages.length > 0) {
-    const usedPages = new Set((data.products || []).map(p => p.imgPage));
-    const extra = data.imgPages.filter(i => !usedPages.has(i) && i >= 0 && i < pages.length);
-    if (extra.length > 0) {
+  // Extra product pages
+  if (data.imgPages?.length) {
+    const used = new Set((data.products || []).map(p => p.imgPage));
+    const extra = data.imgPages.filter(i => !used.has(i) && i >= 0 && i < pages.length);
+    if (extra.length) {
       children.push(spacer(120));
       children.push(subTitle('产品 / 技术展示'));
       for (const idx of extra.slice(0, 4)) {
-        const imgPara = insertImage(pages[idx], 440);
-        if (imgPara) children.push(imgPara);
+        const img = tryImage(pages[idx], 440);
+        if (img) children.push(img);
       }
     }
   }
 
-  // ── 三、核心团队 ──
+  // 三、核心团队
   children.push(secHeading('三', '核心团队'));
-  if (data.team && data.team.length > 0) {
+  if (data.team?.length) {
     for (const m of data.team) {
       children.push(new Paragraph({
         children: [
@@ -843,11 +500,11 @@ async function buildWord(data, competitors, pages) {
     children.push(bodyPara('计划书中未披露详细团队信息。'));
   }
 
-  // ── 四、财务情况 ──
+  // 四、财务情况
   children.push(secHeading('四', '财务情况'));
   children.push(bodyPara(data.finance || '计划书中未披露详细财务数据。'));
 
-  // ── 五、融资情况 ──
+  // 五、融资情况
   children.push(secHeading('五', '融资情况'));
   const finRows = [];
   if (data.round && data.round !== '未披露') finRows.push(infoRow('融资阶段', data.round));
@@ -855,18 +512,17 @@ async function buildWord(data, competitors, pages) {
   if (data.valuation && data.valuation !== '未披露') finRows.push(infoRow('投后估值', data.valuation));
   if (data.useOfFunds && data.useOfFunds !== '未披露') finRows.push(infoRow('融资用途', data.useOfFunds));
   if (data.prevRounds && data.prevRounds !== '未披露') finRows.push(infoRow('历史融资', data.prevRounds));
-
-  if (finRows.length > 0) {
+  if (finRows.length) {
     children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: finRows }));
   } else {
     children.push(bodyPara('计划书中未披露详细融资信息。'));
   }
 
-  // ── 六、行业情况 ──
+  // 六、行业情况
   children.push(secHeading('六', '行业情况'));
   children.push(bodyPara(data.industryDesc));
 
-  if (competitors && competitors.length > 0) {
+  if (competitors?.length) {
     children.push(spacer(140));
     children.push(subTitle('主要竞品分析'));
     const hdr = new TableRow({
@@ -875,8 +531,7 @@ async function buildWord(data, competitors, pages) {
         new TableCell({
           children: [new Paragraph({
             children: [new TextRun({ text: t, bold: true, size: 20, font: FONT, color: WHITE })],
-            alignment: AlignmentType.CENTER,
-            spacing: { after: 0 }
+            alignment: AlignmentType.CENTER, spacing: { after: 0 }
           })],
           shading: { fill: HEADER_BG },
           width: { size: [20, 20, 35, 25][i], type: WidthType.PERCENTAGE },
@@ -886,12 +541,9 @@ async function buildWord(data, competitors, pages) {
     });
     const rows = competitors.map((c, ri) =>
       new TableRow({
-        children: [c.company, c.product, c.desc, c.strength].map((val, ci) =>
+        children: [c.company, c.product, c.desc, c.strength].map(val =>
           new TableCell({
-            children: [new Paragraph({
-              children: [new TextRun({ text: val || '—', size: 19, font: FONT_BODY })],
-              spacing: { after: 0 }
-            })],
+            children: [new Paragraph({ children: [new TextRun({ text: val || '—', size: 19, font: FONT_BODY })], spacing: { after: 0 } })],
             shading: ri % 2 === 0 ? {} : { fill: GRAY_BG },
             margins: { top: 80, bottom: 80, left: 100, right: 100 }
           })
@@ -900,14 +552,14 @@ async function buildWord(data, competitors, pages) {
     );
     children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [hdr, ...rows] }));
     children.push(new Paragraph({
-      children: [new TextRun({ text: '注：以上竞品信息来源于 Claude AI 的公开知识库，仅供参考，数据截至模型训练时间点。', size: 18, font: FONT_BODY, color: '9ca3af', italics: true })],
+      children: [new TextRun({ text: '注：以上竞品信息来源于 Claude AI 公开知识库，仅供参考，数据截至模型训练时间点。', size: 18, font: FONT_BODY, color: '9ca3af', italics: true })],
       spacing: { before: 80 }
     }));
   }
 
-  // ── 七、风险点 ──
+  // 七、风险点
   children.push(secHeading('七', '风险点'));
-  if (data.risks && data.risks.length > 0) {
+  if (data.risks?.length) {
     data.risks.forEach(r => {
       children.push(new Paragraph({
         bullet: { level: 0 },
@@ -919,38 +571,24 @@ async function buildWord(data, competitors, pages) {
     children.push(bodyPara('计划书中未披露相关信息。'));
   }
 
-  // ── 八、综合评价 ──
+  // 八、综合评价
   children.push(secHeading('八', '综合评价'));
   children.push(bodyPara(data.evaluation));
 
-  // ── Build Document ──
   const doc = new Document({
     sections: [{
       properties: {
-        page: {
-          margin: {
-            top: convertInchesToTwip ? convertInchesToTwip(1.0) : 1440,
-            bottom: convertInchesToTwip ? convertInchesToTwip(1.0) : 1440,
-            left: convertInchesToTwip ? convertInchesToTwip(1.1) : 1584,
-            right: convertInchesToTwip ? convertInchesToTwip(1.1) : 1584
-          }
-        }
+        page: { margin: { top: 1440, bottom: 1440, left: 1584, right: 1584 } }
       },
       children
     }]
   });
-
   return await Packer.toBlob(doc);
 }
 
-// ─────────────────────────────────────────────
-// Main Flow
-// ─────────────────────────────────────────────
+// ── Main Flow ──
 async function startGeneration() {
-  const apiKey = localStorage.getItem('cc_apikey');
-  if (!apiKey) { openSettings(); return; }
   if (!selectedFile) { showError('请先上传商业计划书 PDF 文件'); return; }
-
   hideError();
   generatedBlob = null;
   document.getElementById('btnGenerate').disabled = true;
@@ -958,37 +596,29 @@ async function startGeneration() {
   document.getElementById('progressWrap').style.display = 'block';
   document.getElementById('progressSteps').innerHTML = '';
 
-  const model = localStorage.getItem('cc_model') || 'claude-sonnet-4-6';
-
   try {
-    // Step 1
     setProgress(5, '读取 PDF 文件...');
     const buf = await selectedFile.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
     addStep(`PDF 加载完成，共 ${pdf.numPages} 页`);
 
-    // Step 2
     setProgress(15, '提取文字内容...');
     const text = await extractText(pdf);
     addStep(`文字提取完成（约 ${Math.round(text.length / 1000)}K 字符）`);
 
-    // Step 3
     setProgress(28, '处理页面图像...');
     const pages = await renderPages(pdf);
     addStep(`页面图像处理完成（${pages.length} 页）`);
 
-    // Step 4
     setProgress(42, '正在用 AI 分析计划书...');
-    const data = await analyzeBusinessPlan(text, pages, apiKey, model);
+    const data = await analyzeBusinessPlan(text, pages);
     addStep(`内容分析完成：${data.companyName || '项目'}`);
     if (data.products?.length) addStep(`识别产品/服务 ${data.products.length} 项`);
 
-    // Step 5
     setProgress(68, '正在获取竞品信息...');
-    const competitors = await getCompetitors(data, apiKey, model);
+    const competitors = await getCompetitors(data);
     addStep(`竞品分析完成（${competitors.length} 个竞品）`);
 
-    // Step 6
     setProgress(82, '正在生成 Word 文档...');
     generatedBlob = await buildWord(data, competitors, pages);
     addStep('Word 文档生成完成');
@@ -1014,11 +644,6 @@ function downloadDoc() {
   a.click();
   URL.revokeObjectURL(a.href);
 }
-
-// Auto-prompt for API key on first visit
-window.addEventListener('load', () => {
-  if (!localStorage.getItem('cc_apikey')) setTimeout(openSettings, 600);
-});
 </script>
 </body>
 </html>
