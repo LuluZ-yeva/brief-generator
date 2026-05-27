@@ -374,8 +374,8 @@
     <div class="field">
       <label>使用模型</label>
       <select id="selectModel">
-        <option value="claude-sonnet-4-5-20251022">Claude Sonnet 4.5（推荐，速度与质量均衡）</option>
-        <option value="claude-opus-4-5-20251101">Claude Opus 4.5（最高质量，较慢）</option>
+        <option value="claude-sonnet-4-6">Claude Sonnet 4.6（推荐，速度与质量均衡）</option>
+        <option value="claude-opus-4-7">Claude Opus 4.7（最高质量，较慢）</option>
         <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5（最快，成本最低）</option>
       </select>
     </div>
@@ -958,7 +958,7 @@ async function startGeneration() {
   document.getElementById('progressWrap').style.display = 'block';
   document.getElementById('progressSteps').innerHTML = '';
 
-  const model = localStorage.getItem('cc_model') || 'claude-sonnet-4-5-20251022';
+  const model = localStorage.getItem('cc_model') || 'claude-sonnet-4-6';
 
   try {
     // Step 1
