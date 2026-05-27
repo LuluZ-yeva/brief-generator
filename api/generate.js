@@ -1,6 +1,6 @@
-// CommonJS — compatible with Vercel Node.js runtime
-const AnthropicModule = require('@anthropic-ai/sdk');
-const Anthropic = AnthropicModule.default || AnthropicModule;
+import Anthropic from '@anthropic-ai/sdk';
+
+export const config = { maxDuration: 60 };
 
 const ANALYSIS_PROMPT = `请严格按照以下 JSON 格式输出，所有信息必须来自计划书中真实存在的内容，无法找到的字段填"未披露"。只输出 JSON，不要有任何其他文字：
 
@@ -44,7 +44,7 @@ const ANALYSIS_PROMPT = `请严格按照以下 JSON 格式输出，所有信息�
 - products[].hasImg：该产品在计划书中是否有配图
 - imgPages：包含产品/技术展示图的页面索引（0-based），最多6个`;
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -68,16 +68,13 @@ module.exports = async function handler(req, res) {
       const content = [
         {
           type: 'text',
-          text: `你是专业的一级市场股权投资分析师，请仔细阅读以下商业计划书内容，提取关键信息。\n\n【计划书文字内容】\n${truncated}${(text || '').length > 80000 ? '\n（内容较长，已截取前80000字符）' : ''}\n\n${images && images.length ? `【计划书各页截图（共${images.length}页），请仔细观察产品图片】` : ''}`
+          text: `你是专业的一级市场股权投资分析师，请仔细阅读以下商业计划书内容，提取关键信息。\n\n【计划书文字内容】\n${truncated}${(text || '').length > 80000 ? '\n（内容较长，已截取前80000字符）' : ''}\n\n${images?.length ? `【计划书各页截图（共${images.length}页），请仔细观察产品图片】` : ''}`
         }
       ];
 
-      if (images && images.length > 0) {
+      if (images?.length) {
         for (const img of images.slice(0, 10)) {
-          content.push({
-            type: 'image',
-            source: { type: 'base64', media_type: 'image/jpeg', data: img }
-          });
+          content.push({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: img } });
         }
       }
 
@@ -112,4 +109,4 @@ module.exports = async function handler(req, res) {
     console.error('[generate] error:', err);
     return res.status(500).json({ error: err.message || '服务器内部错误' });
   }
-};
+}
